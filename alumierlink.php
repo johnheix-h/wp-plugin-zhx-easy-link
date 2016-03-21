@@ -2,7 +2,7 @@
 /*
 Plugin Name: Alumier Links
 Description: Generate link from text embraced by {{ and }}.
-Version: 1.1
+Version: 1.2
 Author: Huey Zhou
 License:     GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html

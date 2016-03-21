@@ -73,7 +73,8 @@ class AlumierLink
 			$url_posts = $_POST[$this->data_field_url];
 			for ($i = 0; $i < $this->limit; $i++) {
 				// Read their posted value
-				$text = str_replace(array("\\",'"'), '', $text_posts[$i]);
+				$text = $text_posts[$i];
+				//$text = str_replace(array("\\",'"'), '', $text_posts[$i]);
 				$regex = $regex_posts[$i];
 				$url = $url_posts[$i];
 				if (empty($text)) {
@@ -238,11 +239,12 @@ class AlumierLink
 			} else {
 				$v = (array) $val;
 			}
-			$text_keys[] = '{{' . $k . '}}'; 
+			if (empty($v['regex'])) {
+				$v['regex'] = preg_replace('/[^\w\d]+/', '.+?', html_entity_decode($k));
+			}
 			$regex_keys[] = '/\{\{' . $v['regex'] . '\}\}/'; 
 			$url_val[] = sprintf($this->hyperLinkTemp, $v['url'], current(explode('||', $k)));
 		}
-		$content = str_ireplace($text_keys, $url_val, $content);
 		$content = preg_replace($regex_keys, $url_val, $content);
 		
 		return $content;
